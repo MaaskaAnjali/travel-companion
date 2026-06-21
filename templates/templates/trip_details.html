@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trip Details</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            margin:20px;
+            background:#f4f6f9;
+        }
+
+        .card{
+            background:white;
+            padding:20px;
+            border-radius:10px;
+            margin-bottom:20px;
+            box-shadow:0 0 10px rgba(0,0,0,0.1);
+        }
+
+        img{
+            width:250px;
+            margin:10px;
+            border-radius:10px;
+        }
+
+        audio{
+            width:300px;
+            margin:10px 0;
+        }
+
+    </style>
+</head>
+
+<body>
+
+<h1>{{ trip.trip_name }}</h1>
+
+<div class="card">
+
+    <h3>Destination</h3>
+    <p>{{ trip.destination }}</p>
+
+    <h3>Start Date</h3>
+    <p>{{ trip.start_date }}</p>
+
+    <h3>End Date</h3>
+    <p>{{ trip.end_date }}</p>
+
+    <h3>Notes</h3>
+    <p>{{ trip.notes }}</p>
+
+</div>
+
+<div class="card">
+
+    <h2>📸 Photos</h2>
+
+    {% for media in media_files %}
+
+        <img src="{{ url_for('uploaded_file', filename=media.filename) }}">
+
+    {% endfor %}
+
+</div>
+
+<div class="card">
+
+    <h2>🎤 Voice Notes</h2>
+
+    {% for note in voice_notes %}
+
+        <audio controls>
+            <source src="{{ url_for('get_voice_note', filename=note.filename) }}">
+        </audio>
+
+        <br>
+
+    {% endfor %}
+
+</div>
+
+</body>
+</html>

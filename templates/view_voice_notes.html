@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Voice Notes</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            padding:30px;
+        }
+
+        h1{
+            text-align:center;
+        }
+
+        .note{
+            background:white;
+            margin:20px auto;
+            padding:20px;
+            width:70%;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        audio{
+            width:100%;
+            margin-top:10px;
+        }
+    </style>
+</head>
+<body>
+
+<h1>🎤 Trip Voice Notes</h1>
+
+{% for note in notes %}
+
+<div class="note">
+
+    <h3>Trip ID: {{ note.trip_id }}</h3>
+
+    <audio controls>
+        <source
+        src="{{ url_for('get_voice_note', filename=note.filename) }}"
+        type="audio/webm">
+    </audio>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

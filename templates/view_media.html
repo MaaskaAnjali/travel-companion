@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Media</title>
+</head>
+<body>
+
+<h1>Uploaded Media</h1>
+
+{% for media in media_files %}
+
+<div style="margin:20px; border:1px solid black; padding:10px;">
+
+    <p>
+        Trip ID: {{ media.trip_id }}
+    </p>
+
+    <img
+    src="{{ url_for('uploaded_file', filename=media.filename) }}"
+    width="300">
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

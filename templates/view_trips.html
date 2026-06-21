@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Trips</title>
+</head>
+
+<body>
+
+    <h1>My Trips</h1>
+
+    {% if trips %}
+
+        <table border="1">
+
+            <tr>
+                <th>Trip Name</th>
+                <th>Destination</th>
+                <th>Start Date</th>
+                <th>End Date</th>
+                <th>Notes</th>
+            </tr>
+
+            {% for trip in trips %}
+
+            <tr>
+
+                <td>{{ trip.trip_name }}</td>
+
+                <td>{{ trip.destination }}</td>
+
+                <td>{{ trip.start_date }}</td>
+
+                <td>{{ trip.end_date }}</td>
+
+                <td>{{ trip.notes }}</td>
+
+            </tr>
+
+            {% endfor %}
+
+        </table>
+
+    {% else %}
+
+        <p>No trips found.</p>
+
+    {% endif %}
+
+    <br><br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>GPS Location</title>
+</head>
+<body>
+
+    <h2>Current Location</h2>
+
+    <button onclick="getLocation()">
+        Get My Location
+    </button>
+
+    <h3 id="address"></h3>
+
+    <p id="latitude"></p>
+    <p id="longitude"></p>
+
+    <script>
+
+        function getLocation() {
+
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(
+                    showPosition,
+                    showError
+                );
+
+            } else {
+
+                alert(
+                    "Geolocation is not supported by this browser."
+                );
+            }
+        }
+
+        function showPosition(position) {
+
+            let latitude = position.coords.latitude;
+            let longitude = position.coords.longitude;
+
+            document.getElementById("latitude").innerHTML =
+                "Latitude: " + latitude;
+
+            document.getElementById("longitude").innerHTML =
+                "Longitude: " + longitude;
+
+            fetch(
+                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${latitude}&lon=${longitude}`
+            )
+
+            .then(response => response.json())
+
+            .then(data => {
+
+                document.getElementById("address").innerHTML =
+                    "📍 Location: " +
+                    data.display_name;
+
+            })
+
+            .catch(error => {
+
+                document.getElementById("address").innerHTML =
+                    "Unable to fetch address.";
+
+            });
+        }
+
+        function showError(error) {
+
+            switch(error.code) {
+
+                case error.PERMISSION_DENIED:
+
+                    alert(
+                        "Location access denied by user."
+                    );
+
+                    break;
+
+                case error.POSITION_UNAVAILABLE:
+
+                    alert(
+                        "Location information unavailable."
+                    );
+
+                    break;
+
+                case error.TIMEOUT:
+
+                    alert(
+                        "Location request timed out."
+                    );
+
+                    break;
+
+                default:
+
+                    alert(
+                        "An unknown error occurred."
+                    );
+            }
+        }
+
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>View Expenses</title>
+</head>
+
+<body>
+
+    <h1>My Expenses</h1>
+
+    {% if expenses %}
+
+    <table border="1">
+
+        <tr>
+            <th>Category</th>
+            <th>Amount (₹)</th>
+            <th>Description</th>
+        </tr>
+
+        {% for expense in expenses %}
+
+        <tr>
+            <td>{{ expense.category }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.description }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    <h3>Total Expense: ₹{{ total }}</h3>
+
+    {% else %}
+
+    <p>No expenses found.</p>
+
+    {% endif %}
+
+    <br><br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>

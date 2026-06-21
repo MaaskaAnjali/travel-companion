@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Travel Companion Dashboard</title>
+
+```
+<style>
+
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f6f9;
+        margin: 0;
+        padding: 20px;
+        text-align: center;
+    }
+
+    h1 {
+        color: #2c3e50;
+        margin-bottom: 40px;
+    }
+
+    .dashboard-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .card {
+        background: white;
+        width: 260px;
+        padding: 25px;
+        border-radius: 15px;
+        box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+
+    .card:hover {
+        transform: translateY(-5px);
+    }
+
+    .card h3 {
+        color: #34495e;
+        margin-bottom: 15px;
+    }
+
+    .card p {
+        color: #666;
+        font-size: 14px;
+        min-height: 40px;
+    }
+
+    .card a {
+        text-decoration: none;
+    }
+
+    .card button {
+        width: 100%;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        background: #3498db;
+        color: white;
+        cursor: pointer;
+        font-size: 15px;
+    }
+
+    .card button:hover {
+        background: #2980b9;
+    }
+
+</style>
+```
+
+</head>
+
+<body>
+
+<h1>🌍 Travel Companion Dashboard</h1>
+
+<div class="dashboard-container">
+
+```
+<div class="card">
+    <h3>✈ Create Trip</h3>
+    <p>Create a new travel plan.</p>
+    <a href="{{ url_for('create_trip') }}">
+        <button>Create Trip</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📋 View Trips</h3>
+    <p>See all your planned trips.</p>
+    <a href="{{ url_for('view_trips') }}">
+        <button>View Trips</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>💰 Expense Tracker</h3>
+    <p>Add travel expenses.</p>
+    <a href="{{ url_for('expenses') }}">
+        <button>Add Expense</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📊 View Expenses</h3>
+    <p>View all recorded expenses.</p>
+    <a href="{{ url_for('view_expenses') }}">
+        <button>View Expenses</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📈 Expense Analytics</h3>
+    <p>Visual charts and spending analysis.</p>
+    <a href="{{ url_for('analytics') }}">
+        <button>View Analytics</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>💸 Smart Budget Alerts</h3>
+    <p>Set budgets and receive alerts.</p>
+    <a href="{{ url_for('budget') }}">
+        <button>Set Budget</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📍 GPS Location</h3>
+    <p>Find your current location.</p>
+    <a href="{{ url_for('location') }}">
+        <button>Get Location</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>🚨 Emergency SOS</h3>
+    <p>Add emergency contacts.</p>
+    <a href="{{ url_for('emergency') }}">
+        <button>Add Contact</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📞 SOS Contacts</h3>
+    <p>View saved emergency contacts.</p>
+    <a href="{{ url_for('view_emergency') }}">
+        <button>View Contacts</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>🖼 Trip Media Upload</h3>
+    <p>Upload trip photos and videos.</p>
+    <a href="{{ url_for('media_upload') }}">
+        <button>Upload Media</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📂 View Trip Media</h3>
+    <p>See all uploaded media files.</p>
+    <a href="{{ url_for('view_media') }}">
+        <button>View Media</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>🎤 Voice Notes</h3>
+    <p>Record trip voice notes.</p>
+    <a href="{{ url_for('voice_notes') }}">
+        <button>Record Notes</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>🎧 Saved Voice Notes</h3>
+    <p>Listen to recorded voice notes.</p>
+    <a href="{{ url_for('view_voice_notes') }}">
+        <button>View Notes</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>🌤 Weather Forecast</h3>
+    <p>Check weather before travelling.</p>
+    <a href="{{ url_for('weather') }}">
+        <button>Check Weather</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>🤖 AI Travel Summary</h3>
+    <p>Generate an intelligent trip summary.</p>
+    <a href="{{ url_for('travel_summary') }}">
+        <button>Generate Summary</button>
+    </a>
+</div>
+
+<div class="card">
+    <h3>📱 QR Trip Sharing</h3>
+    <p>Share trip details using QR code.</p>
+    <a href="{{ url_for('qr_share') }}">
+        <button>Generate QR</button>
+    </a>
+</div>
+```
+
+</div>
+
+</body>
+</html>

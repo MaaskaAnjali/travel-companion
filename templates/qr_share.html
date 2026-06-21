@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>QR Trip Sharing</title>
+</head>
+<body>
+
+<h1>📱 QR Trip Sharing</h1>
+
+<h2>Select a Trip</h2>
+
+{% for trip in trips %}
+
+<div style="border:1px solid black;padding:10px;margin:10px;">
+
+    <h3>{{ trip.trip_name }}</h3>
+
+    <p>Destination: {{ trip.destination }}</p>
+
+    <a href="{{ url_for('generate_qr', trip_id=trip.id) }}">
+        Generate QR Code
+    </a>
+
+</div>
+
+{% endfor %}
+
+</body>
+</html>

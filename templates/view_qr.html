@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Trip QR Code</title>
+</head>
+<body>
+
+<h1>📱 Trip QR Code</h1>
+
+<h2>{{ trip.trip_name }}</h2>
+
+<img
+src="{{ url_for('static', filename='qr_codes/' + qr_image) }}"
+width="300"
+>
+
+<br><br>
+
+<p>Scan this QR code to view trip details.</p>
+
+<a href="{{ url_for('qr_share') }}">
+    Back
+</a>
+
+</body>
+</html>

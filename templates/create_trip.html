@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Trip</title>
+</head>
+
+<body>
+
+    <h1>Create New Trip</h1>
+
+    <form method="POST">
+
+        <label>Trip Name:</label><br>
+        <input type="text" name="trip_name" required><br><br>
+
+        <label>Destination:</label><br>
+        <input type="text" name="destination" required><br><br>
+
+        <label>Start Date:</label><br>
+        <input type="date" name="start_date" required><br><br>
+
+        <label>End Date:</label><br>
+        <input type="date" name="end_date" required><br><br>
+
+        <label>Notes:</label><br>
+        <textarea name="notes" rows="4" cols="40"></textarea><br><br>
+
+        <button type="submit">
+            Save Trip
+        </button>
+
+    </form>
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>

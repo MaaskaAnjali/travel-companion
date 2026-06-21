@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Expense Analytics</title>
+</head>
+
+<body>
+
+    <h1>Expense Analytics Dashboard</h1>
+
+    <h2>Total Expenses: ₹{{ total }}</h2>
+
+    <h3>Category-wise Expenses</h3>
+
+    <ul>
+
+        {% for category, amount in category_totals.items() %}
+
+            <li>
+
+                {{ category }} : ₹{{ amount }}
+
+            </li>
+
+        {% endfor %}
+
+    </ul>
+
+    <h3>Expense Chart</h3>
+
+    <img src="{{ url_for('static', filename='charts/expense_chart.png') }}"
+         width="600">
+
+    <br><br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>

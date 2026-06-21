@@ -1,0 +1,31 @@
+<form method="POST" enctype="multipart/form-data">
+
+    <label>Select Trip:</label>
+
+    <select name="trip_id" required>
+
+        {% for trip in trips %}
+
+        <option value="{{ trip.id }}">
+            {{ trip.trip_name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br><br>
+
+    <input
+        type="file"
+        name="media"
+        required
+    >
+
+    <br><br>
+
+    <button type="submit">
+        Upload Media
+    </button>
+
+</form>

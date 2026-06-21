@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather Forecast</title>
+</head>
+
+<body>
+
+    <h1>🌤 Weather Forecast</h1>
+
+    <form method="POST">
+
+        <label>Enter City Name:</label><br><br>
+
+        <input
+            type="text"
+            name="city"
+            placeholder="e.g., Hyderabad"
+            required
+        >
+
+        <button type="submit">
+            Get Weather
+        </button>
+
+    </form>
+
+    <br>
+
+    {% if weather %}
+
+        <h2>Weather in {{ weather.city }}</h2>
+
+        <p>🌡 Temperature: {{ weather.temperature }} °C</p>
+
+        <p>☁ Condition: {{ weather.description }}</p>
+
+        <p>💧 Humidity: {{ weather.humidity }}%</p>
+
+        <p>💨 Wind Speed: {{ weather.wind_speed }} m/s</p>
+
+    {% endif %}
+
+    {% if error %}
+
+        <p style="color:red;">
+            {{ error }}
+        </p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="{{ url_for('dashboard') }}">
+        Back to Dashboard
+    </a>
+
+</body>
+</html>

@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Voice Notes</title>
+
+    <style>
+        body{
+            font-family: Arial, sans-serif;
+            background:#f4f4f4;
+            text-align:center;
+            padding:40px;
+        }
+
+        .container{
+            background:white;
+            width:60%;
+            margin:auto;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        select{
+            padding:10px;
+            width:250px;
+            margin-bottom:20px;
+        }
+
+        button{
+            padding:10px 20px;
+            margin:10px;
+            cursor:pointer;
+        }
+
+        #status{
+            margin-top:20px;
+            font-weight:bold;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>🎤 Trip Voice Notes</h1>
+
+    <h3>Select Trip</h3>
+
+    <select id="trip_id">
+
+        {% for trip in trips %}
+
+        <option value="{{ trip.id }}">
+            {{ trip.trip_name }}
+        </option>
+
+        {% endfor %}
+
+    </select>
+
+    <br>
+
+    <button id="startBtn">
+        Start Recording
+    </button>
+
+    <button id="stopBtn" disabled>
+        Stop Recording
+    </button>
+
+    <p id="status"></p>
+
+</div>
+
+<script>
+
+let mediaRecorder;
+let audioChunks = [];
+
+document.getElementById("startBtn").onclick = async function() {
+
+    const stream =
+        await navigator.mediaDevices.getUserMedia({
+            audio:true
+        });
+
+    mediaRecorder = new MediaRecorder(stream);
+
+    mediaRecorder.start();
+
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = event => {
+        audioChunks.push(event.data);
+    };
+
+    document.getElementById("status").innerHTML =
+        "🎙 Recording...";
+
+    document.getElementById("startBtn").disabled = true;
+    document.getElementById("stopBtn").disabled = false;
+};
+
+document.getElementById("stopBtn").onclick = function() {
+
+    mediaRecorder.stop();
+
+    mediaRecorder.onstop = function() {
+
+        const blob =
+            new Blob(audioChunks, {
+                type:"audio/webm"
+            });
+
+        const formData = new FormData();
+
+        formData.append(
+            "trip_id",
+            document.getElementById("trip_id").value
+        );
+
+        formData.append(
+            "audio",
+            blob,
+            "voice_note.webm"
+        );
+
+        fetch("/save_voice_note", {
+            method:"POST",
+            body:formData
+        })
+        .then(response => response.text())
+        .then(data => {
+
+            document.getElementById("status").innerHTML =
+                data;
+
+        });
+
+    };
+
+    document.getElementById("startBtn").disabled = false;
+    document.getElementById("stopBtn").disabled = true;
+};
+
+</script>
+
+</body>
+</html>

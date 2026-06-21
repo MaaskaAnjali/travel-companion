@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Emergency Contacts</title>
+</head>
+
+<body>
+
+    <h1>Emergency Contacts</h1>
+
+    {% if contacts %}
+
+    <table border="1">
+
+        <tr>
+            <th>Name</th>
+            <th>Relationship</th>
+            <th>Phone Number</th>
+        </tr>
+
+        {% for contact in contacts %}
+
+        <tr>
+            <td>{{ contact.name }}</td>
+            <td>{{ contact.relationship }}</td>
+            <td>{{ contact.phone }}</td>
+        </tr>
+
+        {% endfor %}
+
+    </table>
+
+    {% else %}
+
+    <p>No emergency contacts added.</p>
+
+    {% endif %}
+
+    <br>
+
+    <a href="/dashboard">
+        Back to Dashboard
+    </a>
+
+</body>
+
+</html>
