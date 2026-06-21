@@ -514,7 +514,7 @@ def generate_qr(trip_id):
 
     trip = Trip.query.get_or_404(trip_id)
 
-    qr_data = f"https://travel-companion.onrender.com/trip/{trip.id}"
+    qr_data = f"https://travel-companion1.onrender.com/trip/{trip.id}"
 
     filename = f"trip_{trip.id}.png"
 
@@ -554,6 +554,9 @@ def trip_details(trip_id):
         voice_notes=voice_notes
     )
 
+@app.route('/test')
+def test():
+    return "TEST ROUTE WORKING"
 
 print(app.url_map)
 if __name__ == '__main__':
