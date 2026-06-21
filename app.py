@@ -514,7 +514,7 @@ def generate_qr(trip_id):
 
     trip = Trip.query.get_or_404(trip_id)
 
-    qr_data = request.host_url + f"trip/{trip.id}"
+    qr_data = f"https://travel-companion.onrender.com/trip/{trip.id}"
 
     filename = f"trip_{trip.id}.png"
 
@@ -556,9 +556,8 @@ def trip_details(trip_id):
 
 
 print(app.url_map)
-
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
 
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
