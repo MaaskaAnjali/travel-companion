@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<title>Smart SOS</title>
+
+<style>
+
+body{
+    font-family:Arial;
+    text-align:center;
+    background:#f4f6f9;
+}
+
+h1{
+    color:red;
+}
+
+#sosBtn{
+
+    width:200px;
+    height:200px;
+
+    border-radius:50%;
+    border:none;
+
+    background:red;
+    color:white;
+
+    font-size:40px;
+    font-weight:bold;
+
+    cursor:pointer;
+
+    animation: blink 1s infinite;
+
+}
+
+@keyframes blink{
+
+0%{background:red;}
+50%{background:darkred;}
+100%{background:red;}
+
+}
+
+#status{
+
+    margin-top:20px;
+    font-size:20px;
+    color:green;
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<h1>🚨 SMART SOS</h1>
+
+<h3>Press only during emergency</h3>
+
+<button id="sosBtn" onclick="countdown()">
+
+SOS
+
+</button>
+
+<br><br>
+
+<button onclick="cancelSOS()">
+
+❌ Cancel SOS
+
+</button>
+
+<h2 id="count"></h2>
+
+<div id="status"></div>
+
+<br>
+
+<div id="map"></div>
+
+<audio id="alarm">
+
+<source src="https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3">
+
+</audio>
+
+<script>
+let timer;
+function countdown(){
+
+document.getElementById("alarm").play();
+
+let count=5;
+
+timer=setInterval(function(){
+
+document.getElementById("count").innerHTML=
+
+"Sending SOS in "+count;
+
+count--;
+
+if(count<0){
+
+clearInterval(timer);
+
+sendSOS();
+
+}
+
+},1000);
+
+}
+function cancelSOS(){
+
+clearInterval(timer);
+
+document.getElementById("count").innerHTML="";
+
+document.getElementById("status").innerHTML=
+
+"❌ SOS cancelled successfully.";
+
+}
+
+function sendSOS(){
+
+document.getElementById("status").innerHTML=
+"📍 Getting current location...";
+
+
+navigator.geolocation.getCurrentPosition(
+
+function(position){
+
+let lat=position.coords.latitude;
+let lon=position.coords.longitude;
+
+let mapLink=
+"https://maps.google.com/?q="+lat+","+lon;
+document.getElementById("map").innerHTML=
+
+`
+<iframe
+
+width="500"
+
+height="300"
+
+src="https://maps.google.com/maps?q=${lat},${lon}&z=15&output=embed">
+
+</iframe>
+
+`;
+
+
+fetch(
+'https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat='
++lat+'&lon='+lon
+)
+
+.then(response=>response.json())
+
+.then(data=>{
+
+let address=data.display_name;
+
+
+fetch("/get_contacts")
+
+.then(response=>response.json())
+
+.then(contacts=>{
+
+let contact_names="";
+
+let output="";
+
+
+contacts.forEach(contact=>{
+
+contact_names+=contact.name+"\n";
+
+output+="✅ "+contact.name+" alerted<br>";
+
+});
+
+
+document.getElementById("status").innerHTML=
+
+output+
+
+"<br>Opening WhatsApp...";
+
+
+let message=
+
+"🚨 EMERGENCY ALERT!\n\n"+
+
+"I need help.\n\n"+
+
+"Current Address:\n\n"+
+
+address+
+
+"\n\nLive Location:\n"+
+
+mapLink+
+
+"\n\nEmergency Contacts Alerted:\n"+
+
+contact_names;
+
+
+let whatsapp=
+
+"https://wa.me/?text="+
+encodeURIComponent(message);
+
+
+window.open(whatsapp);
+document.getElementById("status").innerHTML +=
+
+"<br><br>✅ Emergency alerts sent successfully!";
+
+});
+
+
+});
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

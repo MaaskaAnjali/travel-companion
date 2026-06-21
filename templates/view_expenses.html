@@ -1,50 +1,57 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <title>View Expenses</title>
 </head>
-
 <body>
 
-    <h1>My Expenses</h1>
+<h1>View Expenses</h1>
 
-    {% if expenses %}
+<form method="GET">
 
-    <table border="1">
+    <label>Select Trip</label>
 
-        <tr>
-            <th>Category</th>
-            <th>Amount (₹)</th>
-            <th>Description</th>
-        </tr>
+    <select name="trip_id">
 
-        {% for expense in expenses %}
+        {% for trip in trips %}
 
-        <tr>
-            <td>{{ expense.category }}</td>
-            <td>{{ expense.amount }}</td>
-            <td>{{ expense.description }}</td>
-        </tr>
+        <option value="{{ trip.id }}">
+            {{ trip.trip_name }}
+        </option>
 
         {% endfor %}
 
-    </table>
+    </select>
 
-    <h3>Total Expense: ₹{{ total }}</h3>
+    <button type="submit">
+        Show Expenses
+    </button>
 
-    {% else %}
+</form>
 
-    <p>No expenses found.</p>
+<hr>
 
-    {% endif %}
+<table border="1">
 
-    <br><br>
+<tr>
+    <th>Category</th>
+    <th>Amount</th>
+    <th>Description</th>
+</tr>
 
-    <a href="/dashboard">
-        Back to Dashboard
-    </a>
+{% for expense in expenses %}
+
+<tr>
+    <td>{{ expense.category }}</td>
+    <td>{{ expense.amount }}</td>
+    <td>{{ expense.description }}</td>
+</tr>
+
+{% endfor %}
+
+</table>
+
+<h2>Total Expense = ₹{{ total }}</h2>
 
 </body>
-
 </html>

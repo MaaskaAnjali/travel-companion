@@ -7,37 +7,63 @@
 
 <body>
 
-    <h1>Expense Analytics Dashboard</h1>
+<h1>Expense Analytics Dashboard</h1>
 
-    <h2>Total Expenses: ₹{{ total }}</h2>
+<form method="GET">
 
-    <h3>Category-wise Expenses</h3>
+    <label>Select Trip</label>
 
-    <ul>
+    <select name="trip_id">
 
-        {% for category, amount in category_totals.items() %}
+        {% for trip in trips %}
 
-            <li>
-
-                {{ category }} : ₹{{ amount }}
-
-            </li>
+        <option value="{{ trip.id }}">
+            {{ trip.trip_name }}
+        </option>
 
         {% endfor %}
 
-    </ul>
+    </select>
 
-    <h3>Expense Chart</h3>
+    <button type="submit">
+        Show Analytics
+    </button>
 
-    <img src="{{ url_for('static', filename='charts/expense_chart.png') }}"
-         width="600">
+</form>
 
-    <br><br>
+<hr>
 
-    <a href="/dashboard">
-        Back to Dashboard
-    </a>
+<h2>Total Expenses: ₹{{ total }}</h2>
+
+<h3>Category-wise Expenses</h3>
+
+<ul>
+
+{% for category, amount in category_totals.items() %}
+
+    <li>
+        {{ category }} : ₹{{ amount }}
+    </li>
+
+{% endfor %}
+
+</ul>
+
+{% if category_totals %}
+
+<h3>Expense Chart</h3>
+
+<img
+src="{{ url_for('static', filename='charts/expense_chart.png') }}"
+width="600">
+
+{% endif %}
+
+<br><br>
+
+<a href="/dashboard">
+    Back to Dashboard
+</a>
 
 </body>
-
 </html>
