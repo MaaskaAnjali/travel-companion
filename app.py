@@ -26,7 +26,7 @@ CHART_FOLDER = os.path.join('static', 'charts')
 VOICE_FOLDER = 'voice_notes'
 QR_FOLDER = os.path.join('static', 'qr_codes')
 
-WEATHER_API_KEY = 'YOUR_OPENWEATHER_API_KEY'
+WEATHER_API_KEY = '9c69f234d9e39c94deff5943b6c26410'
 
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
