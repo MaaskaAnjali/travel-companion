@@ -4,7 +4,7 @@ from datetime import datetime
 from flask import (
     Flask,
     render_template,
-    request,
+    request, 
     redirect,
     url_for,
     send_from_directory
@@ -813,8 +813,7 @@ def travel_summary():
 
 
 # ---------------------------------------------------
-# QR SHARING
-# ---------------------------------------------------
+# QR Trip Sharing
 
 @app.route('/qr_share')
 def qr_share():
@@ -830,13 +829,9 @@ def qr_share():
 @app.route('/generate_qr/<int:trip_id>')
 def generate_qr(trip_id):
 
-    trip = Trip.query.get_or_404(
-        trip_id
-    )
+    trip = Trip.query.get_or_404(trip_id)
 
-    qr_data = (
-        f"http://127.0.0.1:5000/trip/{trip.id}"
-    )
+    qr_data = f"https://travel-companion1.onrender.com/trip/{trip.id}"
 
     filename = f"trip_{trip.id}.png"
 
@@ -856,16 +851,10 @@ def generate_qr(trip_id):
     )
 
 
-# ---------------------------------------------------
-# TRIP DETAILS
-# ---------------------------------------------------
-
 @app.route('/trip/<int:trip_id>')
 def trip_details(trip_id):
 
-    trip = Trip.query.get_or_404(
-        trip_id
-    )
+    trip = Trip.query.get_or_404(trip_id)
 
     media_files = Media.query.filter_by(
         trip_id=trip_id
@@ -875,46 +864,20 @@ def trip_details(trip_id):
         trip_id=trip_id
     ).all()
 
-    expenses = Expense.query.filter_by(
-        trip_id=trip_id
-    ).all()
-
-    total_expense = sum(
-        exp.amount for exp in expenses
-    )
-
     return render_template(
         'trip_details.html',
         trip=trip,
         media_files=media_files,
-        voice_notes=voice_notes,
-        expenses=expenses,
-        total_expense=total_expense
+        voice_notes=voice_notes
     )
-
-
-# ---------------------------------------------------
-# TEST ROUTE
-# ---------------------------------------------------
 
 @app.route('/test')
 def test():
-
     return "TEST ROUTE WORKING"
 
-
-# ---------------------------------------------------
-# MAIN
-# ---------------------------------------------------
-
+print(app.url_map)
 if __name__ == '__main__':
-
     with app.app_context():
-
         db.create_all()
 
-    app.run(
-        host='0.0.0.0',
-        port=5000,
-        debug=True
-    )
+    app.run(host='0.0.0.0', port=5000)
